@@ -1,0 +1,22 @@
+git init
+git status
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Emman0304/Lar-7_task-1.git
+git push -u origin main
+
+https://www.itsolutionstuff.com/post/how-to-make-pdf-file-in-laravel-7example.html
+---pdf---
+https://www.youtube.com/watch?v=Q2AUH9w9XaA&t=876s
+---excel---
+https://github.com/AkashRajpurohit/Form-Validation/blob/master/index.html
+---form validation jquery--- 
+https://www.youtube.com/watch?v=W7NaowNRQao
+---laravel auth- use both username and email 
+https://www.youtube.com/watch?v=-9tUWhNmQz4&t=1250s
+---middleware tutorial--
+
+
+php artisan make:migration add_(column)_as_to_(tb_name)_table --table=(tb_name)
+--- add another column on existing table in db

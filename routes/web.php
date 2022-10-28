@@ -29,3 +29,6 @@ Route::get('/user/index','HomeController@userIndex')->name('user.index');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+//trials
+Route::get('/sidebar','TrialsController@sidebar');
