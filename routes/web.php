@@ -1,5 +1,7 @@
 <?php
 
+use GuzzleHttp\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
+    Route::get('/index','AdminController@adminIndex')->name('admin.index');
+    
+});
+
+Route::get('/user/index','HomeController@userIndex')->name('user.index');
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
