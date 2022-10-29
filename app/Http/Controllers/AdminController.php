@@ -33,11 +33,12 @@ class AdminController extends Controller
 
     public function create(Request $request){
         
-				$student = new Students;
+				$student = new Students();
+                $user = new User();
 
                 $student->student_no = $request->student_no;
-                $student->firstname =$request->firstname;
-                $student->lastname =$request->lastname;
+                $student->fname =$request->firstname;
+                $student->lname =$request->lastname;
 				$student->mname = $request->mname;
                 $student->gender = $request->gender;
                 $student->bday =$request->bday;
@@ -46,10 +47,15 @@ class AdminController extends Controller
                 $student->contact = $request->contact;
                 $student->email =$request->email;
 				$student->address =$request->address;
+
+                $user->name=$request->firstname;
+                $user->email=$request->email;
+                $user->password=$request->student_no;
 				
 				$student->save();
+                $user->save();
 				    
-                return view('admin.index');
+                return view('admin.dashboard');
     }
     
 }

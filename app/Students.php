@@ -10,8 +10,8 @@ class Students extends Model
     
     protected $fillable= [
         'student_no',
-        'fname',
-        'lname',
+        'firstname',
+        'lastname',
         'mname',
         'gender',
         'bday',
