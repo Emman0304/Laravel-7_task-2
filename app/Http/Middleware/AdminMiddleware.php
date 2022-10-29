@@ -23,7 +23,7 @@ class AdminMiddleware
             if (Auth::user()->role=='1') {
                 return $next($request);
             }else {
-                return redirect('/user/index')->with('message','Access denied as youa re not Admin!');
+                return redirect('/student/dashboard')->with('message','Access denied as youa re not Admin!');
             }
         }else {
             return redirect('/login')->with('message','Login to access the website info!');

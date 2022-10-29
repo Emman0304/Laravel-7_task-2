@@ -3,6 +3,7 @@
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,16 +20,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+//admin
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
-    Route::get('/index','AdminController@adminIndex')->name('admin.index');
+    Route::get('/dashboard','AdminController@adminDash')->name('admin.dash');
+    Route::get('/studentProf','AdminController@adminStudentProf')->name('admin.studentProf');
+    Route::get('/announcement','AdminController@adminAnn')->name('admin.ann');
+    Route::get('/userAccs','AdminController@adminUserAccs')->name('admin.userAccs');
+    Route::post('/save','AdminController@store')->name('admin.save');
     
 });
 
-Route::get('/user/index','HomeController@userIndex')->name('user.index');
+//student
+Route::get('/student/dashboard','HomeController@studentDash')->name('student.dash');
+Route::get('/student/profile','HomeController@studentProf')->name('student.prof');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-//trials
-Route::get('/sidebar','TrialsController@sidebar');
