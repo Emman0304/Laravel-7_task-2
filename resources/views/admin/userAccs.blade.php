@@ -1,7 +1,7 @@
 @extends('admin.layouts')
 @section('content')
 <div class="container">
-    <form name="myForm" id="myForm" action="{{ route('admin.save') }}" method="post" onsubmit="return validateForm()" >
+    <form name="myForm" id="myForm" action="/admin/save" method="post" onsubmit="return validateForm()" >
       <div class="row">
         <div class="col-25">
           <label for="student_no">Student #</label>

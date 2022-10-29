@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Exception;
 use App\Students;
 use Illuminate\Http\Request;
-use App\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
+use function Ramsey\Uuid\v1;
 
 class AdminController extends Controller
 {
@@ -27,21 +31,25 @@ class AdminController extends Controller
         return view('admin.userAccs');
     }
 
-    public function store(Request $request)
-    {
-        $request->student_no=$request->student_no;
-        $request->firsname=$request->fname;
-        $request->lastname=$request->lname;
-        $request->mname=$request->mname;
-        $request->gender=$request->gender;
-        $request->bday=$request->bday;
-        $request->bplace=$request->bplace;
-        $request->age=$request->age;
-        $request->contact=$request->contact;
-        $request->email=$request->email;
-        $request->address=$request->address;
+    public function create(Request $request){
+        
+				$student = new Students;
 
-        $request->save();
+                $student->student_no = $request->student_no;
+                $student->firstname =$request->firstname;
+                $student->lastname =$request->lastname;
+				$student->mname = $request->mname;
+                $student->gender = $request->gender;
+                $student->bday =$request->bday;
+				$student->bplace = $request->bplace;
+                $student->age = $request->age;
+                $student->contact = $request->contact;
+                $student->email =$request->email;
+				$student->address =$request->address;
+				
+				$student->save();
+				    
+                return view('admin.index');
     }
     
 }

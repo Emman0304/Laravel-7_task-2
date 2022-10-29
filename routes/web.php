@@ -26,7 +26,7 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     Route::get('/studentProf','AdminController@adminStudentProf')->name('admin.studentProf');
     Route::get('/announcement','AdminController@adminAnn')->name('admin.ann');
     Route::get('/userAccs','AdminController@adminUserAccs')->name('admin.userAccs');
-    Route::post('/save','AdminController@store')->name('admin.save');
+    Route::post('/save','AdminController@create')->name('save');
     
 });
 
