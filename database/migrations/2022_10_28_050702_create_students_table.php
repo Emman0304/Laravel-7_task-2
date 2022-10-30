@@ -19,13 +19,13 @@ class CreateStudentsTable extends Migration
             $table->string('fname');
             $table->string('lname');
             $table->string('mname');
+            $table->integer('age');
             $table->string('gender');
             $table->string('bday');
             $table->string('bplace');
             $table->string('contact');
             $table->string('email');
-            $table->string('password');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
