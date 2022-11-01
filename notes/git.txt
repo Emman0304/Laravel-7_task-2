@@ -13,9 +13,13 @@ https://www.youtube.com/watch?v=Q2AUH9w9XaA&t=876s
 https://github.com/AkashRajpurohit/Form-Validation/blob/master/index.html
 ---form validation jquery--- 
 https://www.youtube.com/watch?v=W7NaowNRQao
+https://indocoder.com/tips-trick-laravel/laravel-7-login-dengan-username-atau-email/
 ---laravel auth- use both username and email 
 https://www.youtube.com/watch?v=-9tUWhNmQz4&t=1250s
 ---middleware tutorial--
+
+https://www.youtube.com/watch?v=uh-BD0ll1uI&t=26s
+--id generator--
 
 
 php artisan make:migration add_(column)_as_to_(tb_name)_table --table=(tb_name)

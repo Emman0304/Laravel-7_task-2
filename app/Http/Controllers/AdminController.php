@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+
 
 
 class AdminController extends Controller
@@ -40,23 +38,19 @@ class AdminController extends Controller
     public function create(Request $request)
     {
 
-        //This is the code for validation of every request
-        $validated = Validator::make($request->all(), [
-            'student_no' => 'required',
+        $request->validate([
+            'student_no' => 'required|unique:students',
             'firstname' => 'required',
             'lastname' => 'required',
             'mname' => 'required',
-            'email' => 'required|email',
-            'contact' => 'required',
+            'email' => 'required|email|unique:students',
+            'contact' => 'required|unique:students',
             'bday' => 'required',
             'bplace' => 'required',
             'age' => 'required',
             'gender' => 'required',
             
         ]);
-        if ($validated->fails()) {
-            return redirect()->route('admin.dash')->with('message','Invalid');
-        }
 
             $students = DB::table('students')->insert(
                 [
@@ -81,6 +75,6 @@ class AdminController extends Controller
                     
                 ]
             );
-            return redirect()->route('admin.dash')->with('message','success');
+            return redirect()->route('admin.userAccs')->with('success','Student added succesfully');
     }
 }

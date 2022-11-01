@@ -1,6 +1,23 @@
 @extends('admin.layouts')
 @section('content')
 <div class="container">
+  @if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+</div>
+<div class="container">
     <form name="myForm" id="myForm" action="/admin/save" method="post" onsubmit="return validateForm()" >
       @csrf
       <div class="row">
