@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="/sidebar.css">
     <link rel="stylesheet" href="/userAccs.css">
+    <link rel="stylesheet" href="/table.css">
 </head>
 <body>
 

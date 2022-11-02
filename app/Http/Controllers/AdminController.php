@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Students;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +20,10 @@ class AdminController extends Controller
     }
     public function adminStudentProf()
     {
-        return view('admin.studentProf');
+        $students = Students::latest()->paginate(10);
+  
+        return view('admin.studentProf',compact('students'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
     public function adminAnn()
     {
@@ -53,7 +57,7 @@ class AdminController extends Controller
 
         $student_id = Helper::IDGenerator(new Students(),'student_no',5,'2022A');
 
-            $students = DB::table('students')->insert(
+            Students::create(
                 [
                     'student_no' => $request->student_no=$student_id,
                     'fname' => $request->firstname,
@@ -69,7 +73,7 @@ class AdminController extends Controller
                 ]
             );
 
-            $users = DB::table('users')->insert(
+            User::create(
                 [
                     'email' => $request->email,
                     'fname' => $request->firstname,
@@ -83,5 +87,6 @@ class AdminController extends Controller
 
             return redirect()->route('admin.userAccs')->with('success','Student added succesfully');
     }
+
 
 }
