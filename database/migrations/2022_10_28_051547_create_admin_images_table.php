@@ -15,7 +15,8 @@ class CreateAdminImagesTable extends Migration
     {
         Schema::create('admin_images', function (Blueprint $table) {
             $table->id();
-            $table->string('images');
+            $table->string('img_alt');
+            $table->string('img_src');
             $table->timestamps();
         });
     }

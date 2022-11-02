@@ -28,7 +28,7 @@
                                             </form>
       </div>
       
-      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; {{ Auth::user()->lname }},{{ Auth::user()->fname }}</span>
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; {{ Auth::user()->username }}</span>
 
     @yield('content')
 
