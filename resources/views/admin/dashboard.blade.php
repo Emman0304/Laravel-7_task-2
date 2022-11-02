@@ -1,7 +1,13 @@
 @extends('admin.layouts')
 @section('content')
     <h1>DASHBOARD</h1>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    
+        <div class="row">
+            <div id="piechart_3d" style="width: 700px; height: 500px;"></div>
+            <div id="curve_chart" style="width: 700px; height: 500px"></div> 
+        </div>
+    
+    
 @endsection
 
 

@@ -30,11 +30,9 @@ class AdminController extends Controller
         return view('admin.userAccs');
     }
 
-    public function popo(Request $request){
-        
-		
-               
-                return view('admin.dashboard');
+    public function layoutView()
+    {
+        return view('admin.layouts');
     }
 
     public function create(Request $request)
@@ -82,6 +80,8 @@ class AdminController extends Controller
                     
                 ]
             );
+
             return redirect()->route('admin.userAccs')->with('success','Student added succesfully');
     }
+
 }
