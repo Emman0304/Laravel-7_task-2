@@ -20,15 +20,7 @@
 <div class="container">
     <form name="myForm" id="myForm" action="/admin/save" method="post" onsubmit="return validateForm()" >
       @csrf
-      <div class="row">
-        <div class="col-25">
-          <label for="student_no">Student #</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="student_no" name="student_no" placeholder="Student #">
-        </div>
-      </div>
-
+      
       <div class="row">
         <div class="col-25">
           <label for="fname">First Name</label>
@@ -83,7 +75,7 @@
             <label for="age">Age</label>
           </div>
           <div class="col-75">
-            <input type="number" id="age" name="age" placeholder="Your age." style="width: 50%"  >
+            <input type="number" id="age" name="age" placeholder="Your age." style="width: 50%" readonly  >
             <span class="error_form" id="age_error_message"></span>
           </div>
       </div>

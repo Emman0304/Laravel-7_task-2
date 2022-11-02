@@ -31,7 +31,7 @@
                                             </form>
       </div>
       
-      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; {{ Auth::user()->name }}</span>
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; {{ Auth::user()->username }}</span>
 
     @yield('content')
 
@@ -40,9 +40,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
    <script src="/sidebar.js" ></script>
    <script src="/register.js" ></script> 
+   <script src="/charts.js"></script>
 </body>
 
 </html>

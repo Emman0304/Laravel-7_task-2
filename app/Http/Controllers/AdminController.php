@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
+use App\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -39,7 +41,6 @@ class AdminController extends Controller
     {
 
         $request->validate([
-            'student_no' => 'required|unique:students',
             'firstname' => 'required',
             'lastname' => 'required',
             'mname' => 'required',
@@ -52,9 +53,11 @@ class AdminController extends Controller
             
         ]);
 
+        $student_id = Helper::IDGenerator(new Students(),'student_no',5,'2022A');
+
             $students = DB::table('students')->insert(
                 [
-                    'student_no' => $request->student_no,
+                    'student_no' => $request->student_no=$student_id,
                     'fname' => $request->firstname,
                     'lname' => $request->lastname,
                     'mname' => $request->mname,
@@ -67,10 +70,14 @@ class AdminController extends Controller
                     'bplace' => $request->bplace
                 ]
             );
+
             $users = DB::table('users')->insert(
                 [
                     'email' => $request->email,
-                    'username' => $request->student_no,
+                    'fname' => $request->firstname,
+                    'lname' => $request->lastname,
+                    'mname' => $request->mname,
+                    'username' => $request->student_no=$student_id,
                     'password' => Hash::make($request->lastname)
                     
                 ]
