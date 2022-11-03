@@ -28,7 +28,7 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     Route::get('/userAccs','AdminController@adminUserAccs')->name('admin.userAccs');
     Route::post('/save','AdminController@create')->name('save');
     Route::get('/export','AdminController@export')->name('export');
-    Route::post('/import','AdminController@import')->name('import');
+    Route::post('/import','AdminController@importStudent')->name('import');
     
 });
 

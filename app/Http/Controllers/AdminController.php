@@ -21,7 +21,7 @@ class AdminController extends Controller
     }
     public function adminStudentProf()
     {
-        $students = Students::latest()->paginate(10);
+        $students = Students::latest()->paginate(5);
   
         return view('admin.studentProf',compact('students'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -107,7 +107,7 @@ class AdminController extends Controller
     {
         return Excel::download(new StudentExport, 'students.xlsx');
     }
-    public function import(Request $request)  
+    public function importStudent(Request $request)  
         {
             // Excel::import(new UsersImport, $request->file);
             $file=$request->file('file')->store('import');

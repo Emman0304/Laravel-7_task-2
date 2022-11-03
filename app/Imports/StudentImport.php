@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Helpers\Helper;
 use App\Students;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
@@ -24,10 +25,12 @@ class StudentImport implements
     */
     public function model(array $row)
     {
+        $student_id = Helper::IDGenerator(new Students(),'student_no',5,'2022A');
 
         return new Students([
-           'lastname' => $row["lastname"],
-           'firstname'=> $row["firstname"],
+           'student_no' => $row["student_no"]=$student_id,
+           'lname' => $row["lastname"],
+           'fname'=> $row["firstname"],
            'mname'    => $row["mi"],
            'age'      => $row["age"],
            'gender'   => $row["gender"],
@@ -39,6 +42,7 @@ class StudentImport implements
         ]);
 
     }
+
     public function rules(): array
     {
         return[

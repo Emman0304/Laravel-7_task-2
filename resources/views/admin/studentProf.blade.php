@@ -71,7 +71,7 @@
         <tbody>
           @foreach ($students as $student )
                 <tr>
-                  <td> <img src="{{ url('/storage/image/students/'.$student->image) }}" alt="Image" width="70px" height="70px" > 
+                  <td> <img src="{{ url('/storage/image/students/'.$student->image) }}" alt="" width="70px" height="70px" > 
                 </td>
                 <td>{{ $student->student_no }}</td>
                 <td>{{ $student->lname }}</td>
