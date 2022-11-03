@@ -21,10 +21,8 @@
     <form name="myForm" id="myForm" action="/admin/save" method="post" enctype="multipart/form-data" onsubmit="return validateForm()" >
       @csrf
 
-      <img src="{{ url('/storage/image/students/') }}" class="img-thumbnail" alt="...">
-
       <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupFile01">Upload Image</label>
+        <label class="input-group-text" for="inputGroupFile01">Upload Picture</label>
         <input type="file" name="image" class="form-control" id="inputGroupFile01">
       </div>
       
