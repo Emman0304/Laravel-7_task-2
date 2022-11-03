@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StudentExport;
 use App\Helpers\Helper;
+use App\Imports\StudentImport;
 use App\Students;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -58,7 +59,7 @@ class AdminController extends Controller
             'age' => 'required',
             'gender' => 'required',
             'address' => 'required',
-            'image' => 'required|unique:students'
+            'image' => 'required'
             
         ]);
 
@@ -102,6 +103,26 @@ class AdminController extends Controller
 
             return redirect()->route('admin.userAccs')->with('success','Student added succesfully');
     }
+    public function export() 
+    {
+        return Excel::download(new StudentExport, 'students.xlsx');
+    }
+    public function import(Request $request)  
+        {
+            // Excel::import(new UsersImport, $request->file);
+            $file=$request->file('file')->store('import');
+
+            $import=new StudentImport;
+            $import->import($file);
+            // dd($import->failures());
+            
+            if ($import->failures()->isNotEmpty()) {
+                return redirect()->route('admin.studentProf')->withFailures($import->failures());
+            }
+
+            return redirect()->route('admin.studentProf')->with('success','Excel imported successfully');
+        
+        }
 
 
 }

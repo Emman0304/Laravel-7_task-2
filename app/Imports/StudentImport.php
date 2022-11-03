@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Imports;
+
+use App\Students;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
+
+class StudentImport implements 
+    ToModel,
+    WithHeadingRow,
+    WithValidation,
+    SkipsOnFailure
+{
+    use Importable,SkipsFailures;
+    /**
+    * @param array $row
+    *
+    * @return \Illuminate\Database\Eloquent\Model|null
+    */
+    public function model(array $row)
+    {
+
+        return new Students([
+           'lastname' => $row["lastname"],
+           'firstname'=> $row["firstname"],
+           'mname'    => $row["mi"],
+           'age'      => $row["age"],
+           'gender'   => $row["gender"],
+           'bday'     => $row["birthdate"], 
+           'bplace'   => $row["birthplace"],
+           'contact'  => $row["contact"], 
+           'email'    => $row["email"],
+           'address'  => $row["address"],
+        ]);
+
+    }
+    public function rules(): array
+    {
+        return[
+            '*.email' => ['email','unique:students,email'],
+            '*.contact' => ['unique:students,contact']
+        ];
+    }
+    // public function onFailure(Failure ...$failures)
+    // {
+        
+    // }
+}
