@@ -39,6 +39,11 @@ class AdminController extends Controller
         return view('admin.layouts');
     }
 
+    public function image()
+    {
+        return view('image');
+    }
+
     public function create(Request $request)
     {
 
@@ -52,8 +57,19 @@ class AdminController extends Controller
             'bplace' => 'required',
             'age' => 'required',
             'gender' => 'required',
+            'address' => 'required',
+            'image' => 'required|unique:students'
             
         ]);
+
+        if ($request->hasFile('image')) {
+            $destination_path = 'public/image/students';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $path = $request->file('image')->storeAs($destination_path,$image_name);
+
+            $input['image'] = $image_name;
+        }
 
         $student_id = Helper::IDGenerator(new Students(),'student_no',5,'2022A');
 
@@ -69,7 +85,8 @@ class AdminController extends Controller
                     'gender' => $request->gender,
                     'address' => $request->address,
                     'bday' => $request->bday,
-                    'bplace' => $request->bplace
+                    'bplace' => $request->bplace,
+                    'image' => $request->image=$image_name
                 ]
             );
 

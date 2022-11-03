@@ -19,7 +19,8 @@ class Students extends Model
         'age',
         'contact',
         'email',
-        'address'
+        'address',
+        'image'
 
     ];
 }

@@ -27,15 +27,14 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     Route::get('/announcement','AdminController@adminAnn')->name('admin.ann');
     Route::get('/userAccs','AdminController@adminUserAccs')->name('admin.userAccs');
     Route::post('/save','AdminController@create')->name('save');
-    Route::get('/layout','AdminController@layoutView')->name('layout');
-
-    
     
 });
 
 //student
 Route::get('/student/dashboard','HomeController@studentDash')->name('student.dash');
 Route::get('/student/profile','HomeController@studentProf')->name('student.prof');
+
+Route::get('/image','AdminController@image');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

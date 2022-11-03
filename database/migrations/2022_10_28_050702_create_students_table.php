@@ -26,8 +26,7 @@ class CreateStudentsTable extends Migration
             $table->string('contact');
             $table->string('email');
             $table->string('address');
-            $table->string('img_alt')->nullable();
-            $table->string('img_src')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

@@ -23,8 +23,9 @@
                     </thead>
                     <tbody>
                       @foreach ($students as $student )
-                          <tr>
-                            <td>{{ $student->image }}</td>
+                            <tr>
+                              <td> <img src="{{ url('/storage/image/students/'.$student->image) }}" alt="Image" width="70px" height="70px" > 
+                            </td>
                             <td>{{ $student->student_no }}</td>
                             <td>{{ $student->lname }}</td>
                             <td>{{ $student->fname }}</td>
