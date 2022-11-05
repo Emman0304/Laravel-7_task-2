@@ -26,7 +26,7 @@ class Students extends Model
     ];
 
     public static function getStudents(){
-        $records= DB::table('students')->select('student_no','lname','fname','mname','age','gender','bday','bplace','contact','email','address','image')->orderBy('id','asc')->get()->toArray();
+        $records= DB::table('students')->select('student_no','lname','fname','mname','age','gender','bday','bplace','contact','email','address')->orderBy('id','asc')->get()->toArray();
         return $records;
     }
 }

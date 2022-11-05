@@ -51,7 +51,7 @@
     </div><br>
       
     <div class="table-responsive">
-      <table id="example" style="width:100%" class="table table-striped table-bordered">
+      <table id="student_list" style="width:100%" class="table table-striped table-bordered">
         <thead>
           <tr>
             <th>Image</th>

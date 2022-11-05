@@ -24,8 +24,7 @@ class StudentExport implements FromCollection,WithHeadings
             'birthplace',
             'contact',
             'email',
-            'address',
-            'image'
+            'address'
 
         ];
     }
