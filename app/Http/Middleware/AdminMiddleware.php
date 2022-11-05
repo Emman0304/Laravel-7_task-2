@@ -20,10 +20,10 @@ class AdminMiddleware
         //user role = 0;
 
         if (Auth::check()) {
-            if (Auth::user()->role=='1') {
+            if (Auth::user()->role=='0') {
                 return $next($request);
             }else {
-                return redirect('/student/dashboard')->with('message','Access denied as youa re not Admin!');
+                return redirect('/admin/dashboard')->with('message','Access denied as youa re not Admin!');
             }
         }else {
             return redirect('/login')->with('message','Login to access the website info!');

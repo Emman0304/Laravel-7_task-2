@@ -223,6 +223,39 @@ class AdminController extends Controller
         return redirect()->route('admin.images')
                         ->with('success','Image deleted successfully');
     }
+    public function chartsView(){
+
+        // GENDER CHART
+        $data = DB::table('students')
+        ->select(
+            DB::raw('gender as gender'),
+            DB::raw('count(*) as number'))
+        ->groupBy('gender')
+        ->get();
+
+        $array[] = ['Gender', 'Number']; 
+
+        foreach($data as $key => $value){
+            $array[++$key] = [$value->gender, $value->number];
+        }
+
+        // APPLICATION CHART
+        $studentApplications = DB::table('students')
+        ->select(
+            DB::raw("day(created_at) as day"),
+            DB::raw("count(*) as number"))
+            
+        ->groupBy(DB::raw("day(created_at)"),'role')
+        ->get();
+
+        $result[] = ['Application', 'Number'];
+
+        foreach ($studentApplications as $key => $value) {
+        $result[++$key] = [$value->day, $value->number];
+        }
+
+        return view('admin.dashboard')->with('gender', json_encode($array))->with('application',json_encode($result));
+    }
 
 
 }

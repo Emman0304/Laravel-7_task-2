@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 //admin
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
-    Route::get('/dashboard','AdminController@adminDash')->name('admin.dash');                   // dashboard
+    Route::get('/dashboard','AdminController@chartsView')->name('admin.dash');                   // dashboard
     Route::get('/studentProf','AdminController@adminStudentProf')->name('admin.studentProf');   //student profile
     Route::get('/userAccs','AdminController@adminUserAccs')->name('admin.userAccs');            //user account
     Route::get('/export','AdminController@export')->name('export');                             // export excel

@@ -53,7 +53,7 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         google.charts.load("current", {packages:["corechart"]});
         google.charts.setOnLoadCallback(drawChart);
         google.charts.setOnLoadCallback(drawLineChart);
@@ -98,10 +98,11 @@
             chart.draw(data, options);
         }
         
-      </script>
+      </script> --}}
 
    <script src="/sidebar.js" ></script>
-   <script src="/register.js" ></script> 
+   <script src="{{asset('js/chart.js')}}"></script>
+   <script src="/register.js" ></script>
 </body>
 
 </html>
