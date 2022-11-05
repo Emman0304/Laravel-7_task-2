@@ -4,6 +4,8 @@ namespace App\Imports;
 
 use App\Helpers\Helper;
 use App\Students;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
@@ -27,7 +29,7 @@ class StudentImport implements
     {
         $student_id = Helper::IDGenerator(new Students(),'student_no',5,'2022A');
 
-        return new Students([
+        Students::create([
            'student_no' => $row["student_no"]=$student_id,
            'lname' => $row["lastname"],
            'fname'=> $row["firstname"],
@@ -41,11 +43,18 @@ class StudentImport implements
            'address'  => $row["address"],
         ]);
 
+        User::create([
+            'username' => $row["student_no"]=$student_id,
+            'email' => $row["email"],
+            'password' =>  Hash::make($row["lastname"])
+        ]);
+
     }
 
     public function rules(): array
     {
         return[
+            '*.student_no' => ['unique:students,student_no'],
             '*.email' => ['email','unique:students,email'],
             '*.contact' => ['unique:students,contact']
         ];

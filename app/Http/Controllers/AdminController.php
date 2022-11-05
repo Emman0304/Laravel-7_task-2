@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Exports\StudentExport;
 use App\Helpers\Helper;
+use App\Helpers\HelperUser;
 use App\Imports\StudentImport;
+use App\Imports\UserImport;
 use App\Students;
 use App\User;
 use Illuminate\Http\Request;
@@ -114,11 +116,18 @@ class AdminController extends Controller
 
             $import=new StudentImport;
             $import->import($file);
+
+            // $importUser=new UserImport;
+            // $importUser->import($file);
             // dd($import->failures());
-            
+
             if ($import->failures()->isNotEmpty()) {
                 return redirect()->route('admin.studentProf')->withFailures($import->failures());
             }
+
+            // if ($importUser->failures()->isNotEmpty()) {
+            //     return redirect()->route('admin.studentProf')->withFailures($importUser->failures());
+            // }
 
             return redirect()->route('admin.studentProf')->with('success','Excel imported successfully');
         
