@@ -7,6 +7,11 @@
             <p>{{ $message }}</p>
         </div>
     @endif
+    @if ($message = Session::get('error'))
+        <div class="alert alert-danger">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
     @if (session()->has('failures'))
         <table class="table table-danger" > 
             <tr>
@@ -43,7 +48,7 @@
   </form> --}}
     <form action="{{route('import')}}" method="post" enctype="multipart/form-data">
       @csrf
-                  <input type="file" name="file" class="form-control" >
+              <input type="file" name="excel" class="form-control" >
               <button type="submit" class="btn btn-primary" style="margin-top: 3px" >Import Excel File</button>
   </form>
     <div>

@@ -54,7 +54,7 @@ class LoginController extends Controller
         if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
         {
             if (Auth::check()) {
-                if (Auth::user()->role=='1') {
+                if (Auth::user()->role=='0') {
                     return redirect('/admin/dashboard');
                 }else{
                     return redirect('/student/dashboard');

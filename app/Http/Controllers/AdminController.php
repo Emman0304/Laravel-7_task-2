@@ -127,25 +127,25 @@ class AdminController extends Controller
     }
     public function importStudent(Request $request)  
         {
-            // Excel::import(new UsersImport, $request->file);
-            $file=$request->file('file')->store('import');
 
-            $import=new StudentImport;
-            $import->import($file);
+             $file=$request->file('excel');
 
-            // $importUser=new UserImport;
-            // $importUser->import($file);
-            // dd($import->failures());
+            if ($request->hasFile('excel')) {
+               $file->store('import');
 
-            if ($import->failures()->isNotEmpty()) {
-                return redirect()->route('admin.studentProf')->withFailures($import->failures());
+                $import=new StudentImport;
+                $import->import($file);
+
+                if ($import->failures()->isNotEmpty()) {
+                    return redirect()->route('admin.studentProf')->withFailures($import->failures());
+                }
+
+                return redirect()->route('admin.studentProf')->with('success','Excel imported successfully');
+                
+            }else{
+                return redirect()->route('admin.studentProf')->with('error','Nothing Selected');
             }
-
-            // if ($importUser->failures()->isNotEmpty()) {
-            //     return redirect()->route('admin.studentProf')->withFailures($importUser->failures());
-            // }
-
-            return redirect()->route('admin.studentProf')->with('success','Excel imported successfully');
+        
         
         }
     public function destroy($id)
