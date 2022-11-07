@@ -21,6 +21,10 @@
     <form name="myForm" id="myForm" action="/admin/save" method="post" enctype="multipart/form-data" onsubmit="return validateForm()" >
       @csrf
 
+      <div class="container">
+        <h1>Create New Application</h1>
+      </div>
+
       <div class="input-group mb-3">
         <label class="input-group-text" for="inputGroupFile01">Upload Picture</label>
         <input type="file" name="image" class="form-control" id="inputGroupFile01">
