@@ -25,7 +25,7 @@ class AdminController extends Controller
     }
     public function adminStudentProf()
     {
-        $students = Students::latest()->paginate(5);
+        $students = Students::orderBy('student_no','desc')->paginate(5);
   
         return view('admin.studentProf',compact('students'))
             ->with('i', (request()->input('page', 1) - 1) * 5);

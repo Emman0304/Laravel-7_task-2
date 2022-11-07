@@ -26,6 +26,7 @@ class CreateStudentsTable extends Migration
             $table->string('contact');
             $table->string('email');
             $table->string('address');
+            $table->integer('role')->default('1');
             $table->string('image')->nullable();
             $table->timestamps();
         });

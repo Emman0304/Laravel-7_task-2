@@ -1,4 +1,6 @@
 @extends('students.layouts')
 @section('content')
-    <h1>PROFILE-STUDENT</h1>
+
+    <h1>Student profile</h1>
+  
 @endsection
