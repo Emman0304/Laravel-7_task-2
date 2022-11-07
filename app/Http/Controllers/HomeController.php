@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\AdminImages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -27,7 +29,11 @@ class HomeController extends Controller
     }
     public function studentDash()
     {
-        return view('students.dashboard');
+        $images = DB::table('admin_images')->get();
+
+        return view('students.dashboard',compact('images'));
+        
+        
     }
     public function studentProf()
     {

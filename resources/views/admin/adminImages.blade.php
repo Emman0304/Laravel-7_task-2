@@ -47,7 +47,7 @@
                 <tbody>
                     @foreach ($annImages as $images )
                         <tr>
-                            <td> <img src="{{ url('/storage/image_ann/announcements/'.$images->images) }}" alt="" width="200px" height="200px" >
+                            <td> <img src="{{ url('/storage/image_ann/announcements/'.$images->images) }}" alt="" width="200px" height="200px" ></td>
                             <td><a class="btn btn-danger" href="{{URL::to('admin/delete/annImages/'.$images->id)}}" onclick="return confirm('confirm delete?')" >Delete</a></td>
                         </tr>
                     @endforeach
