@@ -20,27 +20,91 @@
 </head>
 <body>
 
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="{{ route('admin.dash') }}">Dashboard</a>
-        <a href="{{ route('admin.studentProf') }}">Student Profile</a>
-        <a href="{{ route('admin.ann') }}">Announcement</a>
-        <a href="{{ route('admin.userAccs') }}">User Accounts</a>
-        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
-                                            </a>
-    
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                @csrf
-                                            </form>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              
+                <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                  </svg>
+                  {{ Auth::user()->username }}
+                  </a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
       </div>
-      
-      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; {{ Auth::user()->username }}</span>
-
+    </nav>
+  </header>
+  
       <div class="card-body p-5 bg-white rounded" >
+        <div class="container">
           @yield('content')
+        </div>
+          
+
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasExampleLabel">Student Panel</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div>
+                <ul class="nav nav-pills flex-column mb-auto" >
+                    <li>
+                        <a href="{{ route('admin.dash') }}" class="nav-link link-dark">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.studentProf') }}" class="nav-link link-dark">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                           Student Profile
+                        </a>
+                    </li>
+                    <li>
+                      <a href="{{ route('admin.ann') }}" class="nav-link link-dark">
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                         Announcements
+                      </a>
+                  </li>
+                  <li>
+                  <a href="{{  route('admin.userAccs')  }}" class="nav-link link-dark">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                       User Accounts
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="dropdown mt-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                  Account
+                </button>
+                <ul class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+
       </div>
 
     

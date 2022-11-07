@@ -1,6 +1,7 @@
 @extends('admin.layouts')
 @section('content')
-    <h1>STUDENT PROFILE</h1>
+<div class="container">
+  <h1>STUDENT PROFILE</h1>
   <div class="card-body p-5 bg-white rounded">
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -39,21 +40,21 @@
             @endforeach
         </table>
     @endif
-    {{-- <form action="{{ route('import') }}" method="post" enctype="multipart/form-data" >
-        @csrf
-        <div class="input-group mb-3">
-              <input type="file" class="form-control" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
-              <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">Import Excel</button>
-        </div> 
-  </form> --}}
+    
+  
     <form action="{{route('import')}}" method="post" enctype="multipart/form-data">
       @csrf
-              <input type="file" name="excel" class="form-control" >
-              <button type="submit" class="btn btn-primary" style="margin-top: 3px" >Import Excel File</button>
-  </form>
-    <div>
-      <a class="btn btn-success"  href="{{ route('export') }}"> Export Excel</a><br>
-    </div><br>
+              
+              <div class="container">
+                  <input type="file" name="excel" class="form-control" ><br>
+                  <button type="submit" class="btn btn-primary">Import Excel File</button>
+                  <a class="btn btn-success"  href="{{ route('export') }}"> Export Excel</a><br>
+              </div>
+             
+    
+    </form>
+    
+      
       
     <div class="table-responsive">
       <table id="student_list" style="width:100%" class="table table-striped table-bordered">
@@ -97,6 +98,8 @@
       {!! $students->links() !!}
     </div>
   </div>
+</div>
+    
               
             
       

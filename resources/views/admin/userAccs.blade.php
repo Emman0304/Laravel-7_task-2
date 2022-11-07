@@ -17,7 +17,7 @@
         </div>
     @endif
 </div>
-<div class="container">
+{{-- <div class="container"> --}}
     <form name="myForm" id="myForm" action="/admin/save" method="post" enctype="multipart/form-data" onsubmit="return validateForm()" >
       @csrf
 
@@ -125,5 +125,5 @@
 
       
     </form>
-  </div>
+  {{-- </div> --}}
 @endsection
