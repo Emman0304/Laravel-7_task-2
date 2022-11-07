@@ -53,7 +53,7 @@
                     @endforeach
                 </tbody>
             </table>
-            
+            {!! $annImages->links() !!}
         </div>
         
         
