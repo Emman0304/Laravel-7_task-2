@@ -33,9 +33,7 @@ class HomeController extends Controller
     }
     public function studentDash()
     {
-        $images = DB::table('admin_images')->get();
-
-        return view('students.dashboard',compact('images'));
+        return view('students.dashboard');
         
     }
     public function studentProf()
