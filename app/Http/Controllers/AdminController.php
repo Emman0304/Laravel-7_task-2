@@ -226,14 +226,6 @@ class AdminController extends Controller
         
     }
     
-    public function destroyAnnImages( $id)
-    {
-        $data = DB::table('admin_images')->where('id',$id)->first(); 
-        $dataDel = DB::table('admin_images')->where('id',$id)->delete(); 
-
-        return redirect()->route('admin.images')
-                        ->with('success','Image deleted successfully');
-    }
     public function chartsView(){
 
         // GENDER CHART

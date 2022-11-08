@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 //admin
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
-    Route::get('/dashboard','AdminController@chartsView')->name('admin.dash');                   // dashboard
+    Route::get('/dashboard','AdminController@chartsView')->name('admin.dash');                  // dashboard
     Route::get('/studentProf','AdminController@adminStudentProf')->name('admin.studentProf');   //student profile
     Route::get('/userAccs','AdminController@adminUserAccs')->name('admin.userAccs');            //user account
     Route::get('/export','AdminController@export')->name('export');                             // export excel
@@ -37,14 +37,16 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     Route::post('/saveEdit/announcement/{id}','AdminController@saveEdit')->name("save_edit");   //update announcemnt
     Route::post('/save/announcement','AdminController@CreateAnn')->name("save_ann");            //save announcement
 
-    //image upload
-    Route::post('/save/image','AdminController@adminSaveImage')->name('ann.imageSave');
-    Route::get('/delete/annImages/{id}','AdminCOntroller@destroyAnnImages')->name('destroy.imageAnn');
 });
 
-//student
-Route::get('/student/dashboard','HomeController@studentDash')->name('student.dash');            //student dashboard
-Route::get('/student/profile','HomeController@studentProf')->name('student.prof');              //student profile
+Route::prefix('student')->middleware(['auth','isStudent'])->group(function(){
+    //student
+    Route::get('/dashboard','HomeController@studentDash')->name('student.dash');                //student dashboard
+    Route::get('/profile','HomeController@studentProf')->name('student.prof');                  //student profile
+    Route::get('/editProfile','Homecontroller@editProfile')->name('student.edit');
+    Route::post('/saveEdit/{id}','HomeController@saveEdit')->name('student.saveEdit');
+});
+
 
 
 Auth::routes();

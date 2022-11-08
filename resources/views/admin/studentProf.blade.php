@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
   <h1>STUDENT PROFILE</h1>
-  <div class="card-body p-5 bg-white rounded">
+  {{-- <div class="card-body p-5 bg-white rounded"> --}}
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
@@ -97,7 +97,7 @@
       </table>
       {!! $students->links() !!}
     </div>
-  </div>
+  {{-- </div> --}}
 </div>
     
               
