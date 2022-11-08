@@ -32,6 +32,7 @@ class AdminController extends Controller
     }
     public function adminAnn()
     {
+        
         $announcements = Announcements::latest()->paginate(5);
         
         return view('admin.announcement',compact('announcements'))
@@ -77,7 +78,7 @@ class AdminController extends Controller
             'age' => 'required',
             'gender' => 'required',
             'address' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
             
         ]);
 
@@ -88,9 +89,8 @@ class AdminController extends Controller
             $path = $request->file('image')->storeAs($destination_path,$image_name);
 
             $input['image'] = $image_name;
-        }
-
-        $student_id = Helper::IDGenerator(new Students(),'student_no',5,'2022A');
+            
+            $student_id = Helper::IDGenerator(new Students(),'student_no',5,'2022A');
 
             Students::create(
                 [
@@ -120,6 +120,41 @@ class AdminController extends Controller
             );
 
             return redirect()->route('admin.userAccs')->with('success','Student added succesfully');
+
+        }else{
+            
+            $student_id = Helper::IDGenerator(new Students(),'student_no',5,'2022A');
+
+            Students::create(
+                [
+                    'student_no' => $request->student_no=$student_id,
+                    'fname' => $request->firstname,
+                    'lname' => $request->lastname,
+                    'mname' => $request->mname,
+                    'email' => $request->email,
+                    'age' => $request->age,
+                    'contact' => $request->contact,
+                    'gender' => $request->gender,
+                    'address' => $request->address,
+                    'bday' => $request->bday,
+                    'bplace' => $request->bplace
+                ]
+            );
+
+            User::create(
+                [
+                    'name' => $request->fname,
+                    'email' => $request->email,
+                    'username' => $request->student_no=$student_id,
+                    'password' => Hash::make($request->lastname)
+                    
+                ]
+            );
+
+            return redirect()->route('admin.userAccs')->with('success','Student added succesfully');
+        }
+
+        
     }
     public function export() 
     {
@@ -158,21 +193,31 @@ class AdminController extends Controller
     }
     public function createAnn(Request $request)
     {
-
         $request->validate([
-            'content' => 'required|unique:announcements,content',
-            
+            'title' => 'required',
+            'content' => 'required'
         ]);
 
-    
-        Announcements::create(
-            [
-                'title' => $request->title,
-                'content' => $request->content
+        $image = array();
+        if ($files = $request->file('image')) {
+            foreach($files as $file){
+                $image_name = md5(rand(1000,10000));
+                $ext = strtolower($file->getClientOriginalExtension());
+                $image_full_name = $image_name.'.'.$ext;
+                $upload_path = 'public/admin_ann/post_images/';
+                $image_url = $upload_path.$image_full_name;
+                $file->move($upload_path, $image_full_name);
+                $image[] = $image_url;
+            }
+        }
 
-            ]
-        );
-        return redirect()->route('admin.ann');
+        Announcements::create([
+            'images' => implode('|',$image),
+            'title' => $request->title,
+            'content' => $request->content
+        ]);
+        return redirect()->route('admin.ann')->with('success','New Announcement Created');
+
     }
 
     public function saveEdit(Request $request,$id)
@@ -191,30 +236,7 @@ class AdminController extends Controller
             return redirect()->route('admin.ann')->with('success','Updated Successfuly');
         
     }
-    public function adminSaveImage(Request $request)
-    {
-        $request->validate([
-            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-        ]);
-
-        if ($request->hasFile('image')) {
-            $destination_path = 'public/image_ann/announcements';
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName();
-            $path = $request->file('image')->storeAs($destination_path,$image_name);
-
-            $input['image'] = $image_name;
-        }else{
-            return redirect()->route('admin.images')->with('error','Nothing Selected');
-        }
-
-        AdminImages::create([
-            'images' => $request->image=$image_name
-        ]);
-
-        return redirect()->route('admin.images')->with('success','Image Uploaded Successfuly');
-
-    }
+    
     public function destroyAnnImages( $id)
     {
         $data = DB::table('admin_images')->where('id',$id)->first(); 
@@ -256,6 +278,7 @@ class AdminController extends Controller
 
         return view('admin.dashboard')->with('gender', json_encode($array))->with('application',json_encode($result));
     }
+    
 
 
 }

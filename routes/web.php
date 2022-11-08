@@ -38,7 +38,6 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     Route::post('/save/announcement','AdminController@CreateAnn')->name("save_ann");            //save announcement
 
     //image upload
-    Route::get('/announcement/images','AdminController@adminImages')->name('admin.images');
     Route::post('/save/image','AdminController@adminSaveImage')->name('ann.imageSave');
     Route::get('/delete/annImages/{id}','AdminCOntroller@destroyAnnImages')->name('destroy.imageAnn');
 });

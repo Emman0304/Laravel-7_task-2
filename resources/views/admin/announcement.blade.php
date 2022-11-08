@@ -1,10 +1,8 @@
 @extends('admin.layouts')
 @section('content')
-    
-    
+        
         <h1>ANNOUNCEMENTS</h1>
-        <a href="{{ route('create_ann') }}" class="btn btn-primary" >Create New Announcements</a>
-        <a href="{{ route('admin.images') }}" class="btn btn-primary" >Upload Images</a> <br><br>
+        <a href="{{ route('create_ann') }}" class="btn btn-primary" >Create New Announcements</a><br><br>
         <div class="table-responsive">
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -16,15 +14,27 @@
                     <tr>
                         <th>Title</th>
                         <th>Content</th>
-                        <th>Acion</th>
+                        <th>Image/s</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
+                
                 <tbody>
                     @foreach ($announcements as $ann)
+                        @php
+                            $anno=explode('|',$ann->images);
+                        @endphp
                         <tr>
                             
                             <td>{{ $ann->title }}</td>
                             <td>{{ $ann->content }}</td>
+                            <td> 
+    
+                                @foreach ( $anno as $item)
+                                   <img src="{{ URL::to($item) }}" alt="" width="70px" height="70px"> 
+                                @endforeach
+                                
+                            </td>
                             <td> 
                                 <a class="btn btn-primary" href="{{URL::to('admin/edit/announcement/'.$ann->id)}}">Edit</a>
                                 <a class="btn btn-danger" href="{{URL::to('admin/delete/announcement/'.$ann->id)}}" onclick="return confirm('confirm delete?')" >Delete</a>

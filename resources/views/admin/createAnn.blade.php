@@ -12,15 +12,18 @@
         @endif
 <form action="{{ route('save_ann') }}" method="post" enctype="multipart/form-data" >
     @csrf
-    
+    <h1>Create New Announcement</h1>           
+    <div class="container">
+        <input type="file" name="image[]" multiple class="form-control" ><br>
+    </div>    
     <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
-      <input type="text" name="title" class="form-control" id="title">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" id="title">
     </div>
     <div class="mb-3">
         <label for="content" class="form-label">Content</label>
         <textarea class="form-control" placeholder="" name="content" id="floatingTextarea"></textarea>
-      </div>
+    </div>
    
     
     <button type="submit" class="btn btn-primary">Submit</button>
