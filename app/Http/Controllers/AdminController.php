@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\AdminImages;
 use App\Announcements;
 use App\Exports\StudentExport;
 use App\Helpers\Helper;
-use App\Helpers\HelperUser;
 use App\Imports\StudentImport;
-use App\Imports\UserImport;
 use App\Students;
 use App\User;
 use Illuminate\Http\Request;
@@ -55,15 +52,7 @@ class AdminController extends Controller
         $ann=DB::table('announcements')->where('id',$id)->first();
         return view('admin.editAnn',compact('ann'));
     }
-    public function adminImages()
-    {
-        $annImages = AdminImages::latest()->paginate(5);
-
-        return view('admin.adminImages',compact('annImages')) 
-        ->with('i', (request()->input('page', 1) - 1) * 5);;
-    }
     
-
     public function create(Request $request)
     {
 
@@ -122,7 +111,7 @@ class AdminController extends Controller
             return redirect()->route('admin.userAccs')->with('success','Student added succesfully');
 
         }else{
-            
+
             $student_id = Helper::IDGenerator(new Students(),'student_no',5,'2022A');
 
             Students::create(
