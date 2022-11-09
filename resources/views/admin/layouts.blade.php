@@ -1,7 +1,7 @@
 <?php 
-     $male = DB::table('students')->where('gender', 'Male')->count();
-     $female = DB::table('students')->where('gender', 'Female')->count();
-     $other = DB::table('students')->where('gender', 'Other')->count();
+    //  $male = DB::table('students')->where('gender', 'Male')->count();
+    //  $female = DB::table('students')->where('gender', 'Female')->count();
+    //  $other = DB::table('students')->where('gender', 'Other')->count();
 ?>
 
 <!DOCTYPE html>
@@ -16,32 +16,10 @@
 
     <link rel="stylesheet" href="/sidebar.css">
     <link rel="stylesheet" href="/userAccs.css">
-    <link rel="stylesheet" href="/table.css">
 </head>
 <body>
 
   <header>
-    {{-- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-              
-                <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                  </svg>
-                  {{ Auth::user()->username }}
-                  </a>
-            </li>
-          </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-    </nav> --}}
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -140,53 +118,6 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-    {{-- <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawChart);
-        google.charts.setOnLoadCallback(drawLineChart);
-
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Gender', 'Gender of Students'],
-            ['Male',     {{ $male }}],
-            ['Female',   {{ $female }}],
-            ['Others',   {{ $other }}]
-          ]);
-  
-          var options = {
-            title: 'Student Genders',
-            is3D: true,
-          };
-  
-          var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-          chart.draw(data, options);
-        }
-
-       
-
-        function drawLineChart() {
-            var data = google.visualization.arrayToDataTable([
-            ['Day', 'Applicants'],
-            ['0',0,],
-            ['1',13,],
-            ['2',15,],
-            ['3',20,],
-            ['4',10,]
-            ]);
-
-            var options = {
-            title: 'Daily Number of Applicants',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-            chart.draw(data, options);
-        }
-        
-      </script> --}}
 
    <script src="/sidebar.js" ></script>
    <script src="{{asset('js/chart.js')}}"></script>

@@ -12,6 +12,20 @@
 @endif
 <form action="{{URL::to('admin/saveEdit/announcement/'.$ann->id)}}" method="post" enctype="multipart/form-data" >
     @csrf
+
+    <div>
+        @php
+            $anno=explode('|',$ann->images);
+        @endphp
+        @foreach ( $anno as $item)
+            <img src="{{ URL::to($item) }}" alt="" width="100px" height="100px"> 
+        @endforeach
+    </div>
+
+    <div class="container">
+      <input type="file" name="image[]" multiple class="form-control" >
+    </div>    
+
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input type="text" name="title" value="{{ $ann->title }}" class="form-control" id="title">
@@ -23,7 +37,7 @@
       </div>
    
     
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Update</button>
   </form>
 
   @endsection

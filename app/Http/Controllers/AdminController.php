@@ -216,13 +216,39 @@ class AdminController extends Controller
             'content' => 'required|unique:announcements,content,'.$id,
         ]);
 
-        $data=array();
-            $data["title"]=$request->title;
-            $data["content"]=$request->content;
+        $image = array();
+        if ($files = $request->file('image')) {
+            foreach($files as $file){
+                $image_name = md5(rand(1000,10000));
+                $ext = strtolower($file->getClientOriginalExtension());
+                $image_full_name = $image_name.'.'.$ext;
+                $upload_path = 'public/admin_ann/post_images/';
+                $image_url = $upload_path.$image_full_name;
+                $file->move($upload_path, $image_full_name);
+                $image[] = $image_url;
+                
+                
+            }
+        }
+        if ($request->hasFile('image')) {
+            $data=array();
+                    $data["images"]=implode('|',$image);
+                    $data["title"]=$request->title;
+                    $data["content"]=$request->content;
         
             $anns = DB::table('announcements')->where('id',$id)->update($data);
 
             return redirect()->route('admin.ann')->with('success','Updated Successfuly');
+        }else {
+            $data=array();
+                    $data["title"]=$request->title;
+                    $data["content"]=$request->content;
+        
+            $anns = DB::table('announcements')->where('id',$id)->update($data);
+
+            return redirect()->route('admin.ann')->with('success','Updated Successfuly');
+        }
+        
         
     }
     
