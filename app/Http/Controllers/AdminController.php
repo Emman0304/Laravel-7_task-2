@@ -230,6 +230,7 @@ class AdminController extends Controller
                 
             }
         }
+        
         if ($request->hasFile('image')) {
             $data=array();
                     $data["images"]=implode('|',$image);
