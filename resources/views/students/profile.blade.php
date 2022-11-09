@@ -28,7 +28,7 @@
               
 <!-- Student Profile -->
 <div class="student-profile py-4">
-  <div class="container">
+  
     <div class="row">
       <div class="col-lg-4">
         <div class="card shadow-sm">
@@ -96,7 +96,7 @@
            
     		</div>
 		</div>
-    </div>
+    
 </section>
      
 @endsection
