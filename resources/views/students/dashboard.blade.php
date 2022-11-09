@@ -11,7 +11,7 @@
 
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <div class="container p-3 mb-2 bg-light text-dark">
+            <div class="">
                 <h1></h1>
                 <div class="row justify-content-center p-3">
                     <div class="col-sm-12 col-md-8 col-lg-6">
