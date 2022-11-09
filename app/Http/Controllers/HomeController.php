@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AdminImages;
+use App\Announcements;
 use App\Students;
 use App\User;
 use Illuminate\Http\Request;
@@ -32,9 +33,11 @@ class HomeController extends Controller
         return view('home');
     }
     public function studentDash()
-    {
-        return view('students.dashboard');
+    {    $announcements = Announcements::latest()->paginate(5);
         
+        return view('students.dashboard',compact('announcements'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    
     }
     public function studentProf()
     {
