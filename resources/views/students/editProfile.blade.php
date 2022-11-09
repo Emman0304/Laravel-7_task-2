@@ -64,7 +64,8 @@
             <label for="gender">Gender</label>
           </div>
           <div class="col-75">
-              <select id="gender" name="gender" aria-valuetext="{{ $info->gender }}" >
+              <select id="gender" name="gender" value="" >
+                <option value="{{ $info->gender }}">{{ $info->gender }}</option>
                 <option value="Other">Other</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
