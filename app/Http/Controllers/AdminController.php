@@ -184,7 +184,8 @@ class AdminController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
         $image = array();
@@ -214,6 +215,7 @@ class AdminController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required|unique:announcements,content,'.$id,
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
         $image = array();
