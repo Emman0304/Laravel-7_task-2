@@ -184,8 +184,8 @@ class AdminController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'content' => 'required',
-            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+            'content' => 'required'
+            // 'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
         $image = array();
@@ -201,12 +201,22 @@ class AdminController extends Controller
             }
         }
 
-        Announcements::create([
-            'images' => implode('|',$image),
-            'title' => $request->title,
-            'content' => $request->content
-        ]);
-        return redirect()->route('admin.ann')->with('success','New Announcement Created');
+        if ($request->hasFile('image')) {
+            Announcements::create([
+                'images' => implode('|',$image),
+                'title' => $request->title,
+                'content' => $request->content
+            ]);
+            return redirect()->route('admin.ann')->with('success','New Announcement Created');
+        }else {
+            Announcements::create([
+                
+                'title' => $request->title,
+                'content' => $request->content
+            ]);
+            return redirect()->route('admin.ann')->with('success','New Announcement Created');
+        }
+        
 
     }
 
@@ -214,8 +224,8 @@ class AdminController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'content' => 'required|unique:announcements,content,'.$id,
-            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+            'content' => 'required|unique:announcements,content,'.$id
+            // 'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
         $image = array();
@@ -228,7 +238,6 @@ class AdminController extends Controller
                 $image_url = $upload_path.$image_full_name;
                 $file->move($upload_path, $image_full_name);
                 $image[] = $image_url;
-                
                 
             }
         }

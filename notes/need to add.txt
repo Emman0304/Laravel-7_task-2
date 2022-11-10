@@ -1,0 +1,5 @@
+excel - make bold headers
+admin panel - create another admin acc.
+		- student profile-create crud of list of students
+					- add student export to pdf.
+userACcs- submition first before validation of jQuery

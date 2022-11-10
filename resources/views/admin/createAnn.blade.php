@@ -14,7 +14,7 @@
     @csrf
     <h1>Create New Announcement</h1>           
     <div class="container">
-        <input type="file" name="image[]" multiple class="form-control" ><br>
+        <input type="file" name="image[]" id="image" multiple  class="form-control" ><br>
     </div>    
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>

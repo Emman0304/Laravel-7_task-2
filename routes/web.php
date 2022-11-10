@@ -43,8 +43,8 @@ Route::prefix('student')->middleware(['auth','isStudent'])->group(function(){
     //student
     Route::get('/dashboard','HomeController@studentDash')->name('student.dash');                //student dashboard
     Route::get('/profile','HomeController@studentProf')->name('student.prof');                  //student profile
-    Route::get('/editProfile','Homecontroller@editProfile')->name('student.edit');
-    Route::post('/saveEdit/{id}','HomeController@saveEdit')->name('student.saveEdit');
+    Route::get('/editProfile','Homecontroller@editProfile')->name('student.edit');              //edit profile
+    Route::post('/saveEdit/{id}','HomeController@saveEdit')->name('student.saveEdit');          //save edit profile
 });
 
 
