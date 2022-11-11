@@ -1,5 +1,5 @@
 excel - make bold headers  							-- ADDED
-admin panel - create another admin acc.
-		- student profile-create crud of list of students
-					- add student export to pdf.
+admin panel - create another admin acc.					-- ADDED
+		- student profile-create crud of list of students	-- ADDED
+					- add student export to pdf.		-- ADDED
 userACcs- submition first before validation of jQuery			-- ADDED

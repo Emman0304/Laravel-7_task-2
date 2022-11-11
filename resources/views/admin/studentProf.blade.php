@@ -48,7 +48,8 @@
               <div class="container">
                   <input type="file" name="excel" class="form-control" ><br>
                   <button type="submit" class="btn btn-primary">Import Excel File</button>
-                  <a class="btn btn-success"  href="{{ route('export') }}"> Export Excel</a><br>
+                  <a class="btn btn-success"  href="{{ route('export') }}"> Export Excel</a>
+                  <a class="btn btn-success"  href="{{ route('genPDF') }}"> Export PDF</a><br>
               </div>
              
     
@@ -67,11 +68,12 @@
             <th>M.I.</th>
             <th>Age</th>
             <th>Gender</th>
-            <th>Birth Date</th>
+            <th width="150px" >Birth Date</th>
             <th>Birth Place</th>
             <th>Contact #</th>
             <th>Email</th>
             <th>Address</th>
+            <th width="400px" >Action</th>
           </tr>
         </thead>
         <tbody>
@@ -90,6 +92,10 @@
                 <td>{{ $student->contact }}</td>
                 <td>{{ $student->email }}</td>
                 <td>{{ $student->address }}</td>
+                <td>
+                  <a href="{{ URL::to('admin/editProfile/'.$student->id) }}" class="btn btn-primary" >Edit</a>
+                  <a href="{{ URL::to('admin/delete/student/'.$student->id)}}" class="btn btn-danger" onclick="return confirm('confirm delete?')" >Delete</a>
+                </td>
               </tr>
           @endforeach
           

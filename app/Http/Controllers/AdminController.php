@@ -8,7 +8,10 @@ use App\Helpers\Helper;
 use App\Imports\StudentImport;
 use App\Students;
 use App\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -52,6 +55,12 @@ class AdminController extends Controller
         $ann=DB::table('announcements')->where('id',$id)->first();
         return view('admin.editAnn',compact('ann'));
     }
+    public function tablePDF()
+    {
+        $students = DB::table('students')->get();
+
+        return view('admin.tablePDF',compact('students'));
+    }
     
     public function create(Request $request)
     {
@@ -94,7 +103,8 @@ class AdminController extends Controller
                     'address' => $request->address,
                     'bday' => $request->bday,
                     'bplace' => $request->bplace,
-                    'image' => $request->image=$image_name
+                    'image' => $request->image=$image_name,
+                    
                 ]
             );
 
@@ -103,7 +113,9 @@ class AdminController extends Controller
                     'name' => $request->fname,
                     'email' => $request->email,
                     'username' => $request->student_no=$student_id,
-                    'password' => Hash::make($request->lastname)
+                    'password' => Hash::make($request->lastname),
+                    'role' => $request->role=1
+            
                     
                 ]
             );
@@ -135,7 +147,8 @@ class AdminController extends Controller
                     'name' => $request->fname,
                     'email' => $request->email,
                     'username' => $request->student_no=$student_id,
-                    'password' => Hash::make($request->lastname)
+                    'password' => Hash::make($request->lastname),
+                    'role' => $request->role=1
                     
                 ]
             );
@@ -297,7 +310,126 @@ class AdminController extends Controller
 
         return view('admin.dashboard')->with('gender', json_encode($array))->with('application',json_encode($result));
     }
-    
+    public function generatePDF()
+    {
+            $students = Students::all();
+            $pdf = PDF::loadView('admin.tablePDF',compact('students'));
 
+            return $pdf->download('students.pdf');
+    }
+    public function destroyStudent($student_id)
+    {
+        // $data = DB::table('students')->where('id',$id)->first(); 
+        // $dataDel = DB::table('students')->where('id',$id)->delete(); 
+
+        $student = DB::table('students')->where('id',$student_id)->first();
+        $studentEmail = DB::table('students')->where('id',$student_id)->value('email');
+
+        $user = DB::table('users')->where('email',$studentEmail)->first();
+        $userEmail=DB::table('users')->where('email',$studentEmail)->value('id');
+
+        $studentDel=DB::table('students')->where('id',$student_id)->delete();
+        $userDel = DB::table('users')->where('id',$userEmail)->delete();
+
+        return redirect()->route('admin.studentProf')
+                        ->with('success','Student info deleted successfully');
+    }
+    public function editProfile($id)
+    {
+        $info=DB::table('students')->where('id',$id )->first();
+        return view('admin.editProfile',compact('info'));
+    }
+
+    public function saveStudentEdit(Request $request,$id)
+    {
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'mname' => 'required',
+            'email' => 'required|email|unique:students,email,'.$id,
+            'contact' => 'required|unique:students,contact,'.$id,
+            'bday' => 'required',
+            'bplace' => 'required',
+            'age' => 'required',
+            'gender' => 'required',
+            'address' => 'required',
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+            
+        ]);
+        if ($request->hasFile('image')) {
+            $destination_path = 'public/image/students';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $path = $request->file('image')->storeAs($destination_path,$image_name);
+
+            $input['image'] = $image_name;
+            
+            $data=array();
+                $data["image"]=$request->image=$image_name;
+                $data["fname"]=$request->firstname;
+                $data["lname"]=$request->lastname;
+                $data["mname"]=$request->mname;
+                $data["age"]=$request->age;
+                $data["gender"]=$request->gender;
+                $data["bday"]=$request->bday;
+                $data["bplace"]=$request->bplace;
+                $data["contact"]=$request->contact;
+                $data["email"]=$request->email;
+                $data["address"]=$request->address;
+
+            $user=array();
+                $user["password"]= Hash::make($request->lastname);
+                $user["email"]=$request->email;
+
+                $studs = DB::table('students')->where('id',$id)->update($data);
+                $users = DB::table('users')->where('id',$id)->update($user);
+
+            return redirect()->route('admin.studentProf')->with('success','Student Updated Succesfully');
+        }else{
+            
+            $data=array();
+                
+                $data["fname"]=$request->firstname;
+                $data["lname"]=$request->lastname;
+                $data["mname"]=$request->mname;
+                $data["age"]=$request->age;
+                $data["gender"]=$request->gender;
+                $data["bday"]=$request->bday;
+                $data["bplace"]=$request->bplace;
+                $data["contact"]=$request->contact;
+                $data["email"]=$request->email;
+                $data["address"]=$request->address;
+
+            $user=array();
+                $user["password"]= Hash::make($request->lastname);
+                $user["email"]=$request->email;
+                
+                $studs = DB::table('students')->where('id',$id)->update($data);
+                $users = DB::table('users')->where('id',$id)->update($user);
+
+            return redirect()->route('admin.studentProf')->with('success','Student Updated Succesfully');
+        }
+    }
+    public function createAdmin(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|unique:users',
+            'email'    => 'required|email|unique:users',
+            'password' => 'required',
+            'confirmPassword' => 'required|same:password'
+        ]);
+
+            User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' =>Hash::make($request->password),
+            'role' => $request->role=0
+            ]);
+
+            return redirect()->route('admin.userAccs')->with('success','Admin account added successfuly');
+        
+
+        
+    }
 
 }

@@ -37,13 +37,21 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     Route::post('/saveEdit/announcement/{id}','AdminController@saveEdit')->name("save_edit");   //update announcemnt
     Route::post('/save/announcement','AdminController@CreateAnn')->name("save_ann");            //save announcement
 
+    Route::get('/table/pdf','AdminController@tablePDF')->name('listPDF');                       //students table pdf
+    Route::get('/export/pdf','AdminController@generatePDF')->name('genPDF');                    //generate pdf
+    Route::get('/delete/student/{id}',"AdminController@destroyStudent")->name('delete.student'); //delete student info
+
+    Route::get('/editProfile/{id}','AdminController@editProfile')->name('student.edit');              //edit profile
+    Route::post('/saveEdit/{id}','AdminController@saveStudentEdit')->name('student.saveEdit');      //save edit profile
+
+    Route::post('/create/admin','AdminController@createAdmin')->name('createAdmin');            // create new adin acc
 });
 
 Route::prefix('student')->middleware(['auth','isStudent'])->group(function(){
     //student
     Route::get('/dashboard','HomeController@studentDash')->name('student.dash');                //student dashboard
     Route::get('/profile','HomeController@studentProf')->name('student.prof');                  //student profile
-    Route::get('/editProfile','Homecontroller@editProfile')->name('student.edit');              //edit profile
+    Route::get('/editProfile/','HomeController@editProfile')->name('student.edit');              //edit profile
     Route::post('/saveEdit/{id}','HomeController@saveEdit')->name('student.saveEdit');          //save edit profile
 });
 
@@ -52,3 +60,4 @@ Route::prefix('student')->middleware(['auth','isStudent'])->group(function(){
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/user/','AdminController@user')->name('user');

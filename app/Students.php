@@ -21,7 +21,7 @@ class Students extends Model
         'contact',
         'email',
         'address',
-        'image'
+        'image',
 
     ];
 

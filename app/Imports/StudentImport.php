@@ -46,7 +46,9 @@ class StudentImport implements
         User::create([
             'username' => $row["student_no"]=$student_id,
             'email' => $row["email"],
-            'password' =>  Hash::make($row["lastname"])
+            'password' =>  Hash::make($row["lastname"]),
+            'role' => $row["role"]=1
+
         ]);
 
     }
