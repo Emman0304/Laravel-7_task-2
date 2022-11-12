@@ -24,6 +24,8 @@ https://www.youtube.com/watch?v=uh-BD0ll1uI&t=26s
 https://www.youtube.com/watch?v=6dF2bpBLzBc&t=76s
 ---upload multiple images--
 
-
 php artisan make:migration add_(column)_as_to_(tb_name)_table --table=(tb_name)
 --- add another column on existing table in db
+
+https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+--admin template html
